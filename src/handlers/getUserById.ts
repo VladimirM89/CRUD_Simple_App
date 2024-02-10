@@ -1,10 +1,11 @@
 import { ServerResponse } from "http";
-import USERS_DB from "../users";
-import { RESPONSE_CODE } from "../constants/enums/serverConstants";
-import { TYPE_APPLICATION_JSON } from "../constants/environment";
+import USERS_DB from "../db/users";
+import { RESPONSE_CODE } from "../constants/enums/serverEnums";
+import { TYPE_APPLICATION_JSON } from "../constants/serverEnvironment";
 import { ErrorMessage } from "../models/ServerResponses";
-import { PROBLEM_WITH_DB_TEXT, USER_NOT_FOUND_TEXT } from "../constants/stringConstants";
+import { USER_NOT_FOUND_TEXT } from "../constants/stringConstants";
 import { getIdFromPath } from "../utils/handlePath";
+import sendErrorMessage from "../utils/sendErrorMessage";
 
 function getUserById(resp: ServerResponse, path: string) {
   const id = getIdFromPath(path);
@@ -20,8 +21,7 @@ function getUserById(resp: ServerResponse, path: string) {
       resp.end(JSON.stringify(errorMessage));
     }
   } catch {
-    resp.writeHead(RESPONSE_CODE.INTERNAL_SERVER_ERROR, TYPE_APPLICATION_JSON);
-    resp.end(PROBLEM_WITH_DB_TEXT);
+    sendErrorMessage(resp, RESPONSE_CODE.NOT_FOUND, USER_NOT_FOUND_TEXT);
   }
 }
 

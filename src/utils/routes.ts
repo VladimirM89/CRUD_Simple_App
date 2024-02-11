@@ -46,12 +46,12 @@ const routes: Route[] = [
     getUserById(resp, pathNormalize(req.url!)),
   ),
 
-  new Route(Endpoints.USERS, METHOD.POST, (req: IncomingMessage, resp: ServerResponse) =>
-    addUser({ name: "Vladimir", age: 33, hobbies: [] }),
+  new Route(Endpoints.USERS, METHOD.POST, async (req: IncomingMessage, resp: ServerResponse) =>
+    addUser(req, resp),
   ),
 
   new Route(Endpoints.USER_ID, METHOD.PUT, (req: IncomingMessage, resp: ServerResponse) =>
-    updateUser("1", { age: 23, name: "Vova", hobbies: ["nodejs"] }),
+    updateUser("1", { age: 23, username: "Vova", hobbies: ["nodejs"] }),
   ),
 
   new Route(Endpoints.USER_ID, METHOD.DELETE, (req: IncomingMessage, resp: ServerResponse) =>

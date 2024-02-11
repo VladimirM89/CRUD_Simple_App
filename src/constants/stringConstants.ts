@@ -8,3 +8,4 @@ export const REQUIRED_KEY_IN_REQUEST_DATA_TEXT =
   "Fields 'username', 'age' and 'hobbies' are required";
 export const INVALID_REQUEST_DATA_TEXT = "Invalid data in request";
 export const USER_EXIST_TEXT = "Such user is already exist";
+export const ID_IS_INVALID_TEXT = "Invalid format ID";

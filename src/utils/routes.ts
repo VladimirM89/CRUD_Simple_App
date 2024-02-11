@@ -51,11 +51,11 @@ const routes: Route[] = [
   ),
 
   new Route(Endpoints.USER_ID, METHOD.PUT, (req: IncomingMessage, resp: ServerResponse) =>
-    updateUser("1", { age: 23, username: "Vova", hobbies: ["nodejs"] }),
+    updateUser(req, resp),
   ),
 
   new Route(Endpoints.USER_ID, METHOD.DELETE, (req: IncomingMessage, resp: ServerResponse) =>
-    deleteUser("1"),
+    deleteUser(req, resp),
   ),
 ];
 

@@ -8,6 +8,7 @@ import { getIdFromPath } from "../utils/handlePath";
 import sendErrorMessage from "../utils/sendErrorMessage";
 
 function getUserById(resp: ServerResponse, path: string) {
+  console.log("get user by id", path);
   const id = getIdFromPath(path);
   try {
     const user = USERS_DB.find((user) => user.id === id);

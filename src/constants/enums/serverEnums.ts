@@ -1,5 +1,6 @@
 export enum Endpoints {
-  API_USERS = "/api/users",
+  USERS = "/api/users",
+  USER_ID = "/api/users/:id",
 }
 
 export enum RESPONSE_CODE {

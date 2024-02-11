@@ -28,3 +28,5 @@ const server = http.createServer((request: IncomingMessage, response: ServerResp
 });
 
 server.listen(PORT, () => console.log(`${SERVER_START_MESSAGE} ${PORT}`));
+
+export default server;

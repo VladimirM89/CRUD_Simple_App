@@ -1,7 +1,6 @@
 /* eslint-disable no-return-assign */
 import { IncomingMessage, ServerResponse } from "http";
 import { validate } from "uuid";
-import User from "../models/User";
 import USERS_DB from "../db/users";
 import { getIdFromPath } from "../utils/handlePath";
 import { RESPONSE_CODE } from "../constants/enums/serverEnums";
@@ -9,11 +8,13 @@ import {
   ID_IS_INVALID_TEXT,
   INTERNAL_SERVER_ERROR,
   INVALID_REQUEST_DATA_TEXT,
+  INVALID_REQUEST_FORMAT_TEXT,
   USER_NOT_FOUND_TEXT,
 } from "../constants/stringConstants";
 import sendErrorMessage from "../utils/sendErrorMessage";
 import { TYPE_APPLICATION_JSON } from "../constants/serverEnvironment";
 import { isDataTypeAccordingToUserInterface } from "../utils/checkBelongToInterface";
+import User from "../models/User";
 
 function updateUser(req: IncomingMessage, resp: ServerResponse) {
   try {
@@ -36,7 +37,13 @@ function updateUser(req: IncomingMessage, resp: ServerResponse) {
     req.on("data", (msg) => (requestBody += msg));
 
     req.on("end", () => {
-      const requestBodyObj: User = JSON.parse(requestBody);
+      let requestBodyObj: User | object = {};
+      try {
+        requestBodyObj = JSON.parse(requestBody);
+      } catch {
+        sendErrorMessage(resp, RESPONSE_CODE.BAD_REQUEST, INVALID_REQUEST_FORMAT_TEXT);
+        return;
+      }
 
       const user = USERS_DB.find((item) => item.id === userId);
 

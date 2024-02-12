@@ -10,11 +10,13 @@ import sendErrorMessage from "../utils/sendErrorMessage";
 import {
   INTERNAL_SERVER_ERROR,
   INVALID_REQUEST_DATA_TEXT,
+  INVALID_REQUEST_FORMAT_TEXT,
   REQUIRED_KEY_IN_REQUEST_DATA_TEXT,
   USER_EXIST_TEXT,
 } from "../constants/stringConstants";
 import USERS_DB from "../db/users";
 import { TYPE_APPLICATION_JSON } from "../constants/serverEnvironment";
+import User from "../models/User";
 
 function addUser(req: IncomingMessage, resp: ServerResponse) {
   const id = uuidv4();
@@ -24,7 +26,13 @@ function addUser(req: IncomingMessage, resp: ServerResponse) {
     req.on("data", (msg) => (requestBody += msg));
 
     req.on("end", () => {
-      const requestBodyObj = JSON.parse(requestBody);
+      let requestBodyObj: User | object = {};
+      try {
+        requestBodyObj = JSON.parse(requestBody);
+      } catch {
+        sendErrorMessage(resp, RESPONSE_CODE.BAD_REQUEST, INVALID_REQUEST_FORMAT_TEXT);
+        return;
+      }
       if (isBelongToUserInterface(requestBodyObj)) {
         if (isDataTypeAccordingToUserInterface(requestBodyObj)) {
           requestBodyObj.id = id;

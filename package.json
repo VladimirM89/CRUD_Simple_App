@@ -12,7 +12,7 @@
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix",
     "format": "prettier --write ./src/**",
-    "test": "jest --detectOpenHandles --silent=false --verbose"
+    "test": "jest --detectOpenHandles  --verbose"
   },
   "author": "",
   "license": "ISC",

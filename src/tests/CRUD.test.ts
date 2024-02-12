@@ -61,10 +61,40 @@ describe("CRUD methods", () => {
       expect(res.statusCode).toEqual(201);
       expect(res.body).toStrictEqual({ ...user, id: expect.any(String) });
     });
+
+    it("should return error message if data incorrect", async () => {
+      const res = await request(server)
+        .post("/api/users")
+        .send({ ...user, hobbies: [22, "react"] });
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toStrictEqual({ message: "Invalid data in request" });
+    });
   });
 
   describe("PUT method", () => {
-    it("should put existing user", async () => {
+    it("should return error message when user not exist", async () => {
+      const res = await request(server)
+        .put(`/api/users/${notExistingId}`)
+        .send({
+          username: "New test",
+          hobbies: ["frontend"],
+        });
+      expect(res.statusCode).toEqual(404);
+      expect(res.body).toStrictEqual({ message: "User not found" });
+    });
+
+    it("should return error message when id is invalid", async () => {
+      const res = await request(server)
+        .put(`/api/users/${fakeId}`)
+        .send({
+          username: "New test",
+          hobbies: ["frontend"],
+        });
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toStrictEqual({ message: "Invalid format ID" });
+    });
+
+    it("should return updated user", async () => {
       const res = await request(server)
         .put(`/api/users/${id}`)
         .send({
@@ -72,7 +102,23 @@ describe("CRUD methods", () => {
           hobbies: ["frontend"],
         });
       expect(res.statusCode).toEqual(200);
-      expect(res.body).toStrictEqual({ username: "New test", age: 22, hobbies: ["frontend"], id });
+      expect(res.body).toStrictEqual({ ...user, username: "New test", hobbies: ["frontend"], id });
+    });
+  });
+
+  describe("DELETE method", () => {
+    it("should delete user", async () => {
+      const res = await request(server).delete(`/api/users/${id}`).send();
+      expect(res.statusCode).toEqual(204);
+      expect(res.body).toStrictEqual("");
+    });
+  });
+
+  describe("DELETE method", () => {
+    it("should return error if user not exist", async () => {
+      const res = await request(server).delete(`/api/users/${notExistingId}`).send();
+      expect(res.statusCode).toEqual(404);
+      expect(res.body).toStrictEqual({ message: "User not found" });
     });
   });
 });

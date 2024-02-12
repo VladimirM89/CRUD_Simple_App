@@ -16,7 +16,7 @@ import {
 import USERS_DB from "../db/users";
 import { TYPE_APPLICATION_JSON } from "../constants/serverEnvironment";
 
-async function addUser(req: IncomingMessage, resp: ServerResponse) {
+function addUser(req: IncomingMessage, resp: ServerResponse) {
   const id = uuidv4();
   let requestBody = "";
 

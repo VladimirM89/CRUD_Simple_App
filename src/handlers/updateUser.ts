@@ -55,6 +55,11 @@ function updateUser(req: IncomingMessage, resp: ServerResponse) {
       }
 
       if (user) {
+        const userIndex = USERS_DB.indexOf(user);
+        if (userIndex !== -1) {
+          USERS_DB[userIndex] = result;
+        }
+
         resp.writeHead(RESPONSE_CODE.OK, TYPE_APPLICATION_JSON);
         resp.end(JSON.stringify(result));
       } else {

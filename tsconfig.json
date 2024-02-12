@@ -8,7 +8,8 @@
     "outDir": "./dist",
     "moduleResolution": "NodeNext",
     "sourceMap": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true, 
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "noImplicitAny": true,
     "removeComments": true,
@@ -16,5 +17,5 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
-  "lib": ["esnext"]
+  "lib": ["esnext"],
 }

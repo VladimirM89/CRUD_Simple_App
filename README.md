@@ -4,13 +4,7 @@
 
    - Node.js version 20 LTS
 
-## Install
-  - Clone repository: `git clone https://github.com/VladimirM89/CRUD_Simple_App.git`
-  - Switch to branch **develop** - `git checkout develop`
-  - Install dependencies: `npm install`
-  - Create project root directory file `.env` with **PORT = 4000** or another port you want
-
-## User interface
+   ## User interface
 
     {
       "id": string,
@@ -23,6 +17,15 @@
   - `username` — user's name (`string`, **required**)
   - `age` — user's age (`number`, **required**)
   - `hobbies` — user's hobbies (`array` of `strings` or empty `array`, **required**)
+
+
+
+## Install
+  - Clone repository: `git clone https://github.com/VladimirM89/CRUD_Simple_App.git`
+  - Switch to branch **develop** - `git checkout develop`
+  - Install dependencies: `npm install`
+  - Create in the project root directory file `.env` with **PORT=4000** or another port you want
+
 
 ## Run the app
    - To start app in **developer** mode enter `npm run start:dev`
@@ -109,10 +112,10 @@
 
     Returned value:
     {
+      "id": "699efcb8-ff48-4cac-9573-8f90c665931c",
       "username": "John",
       "age": 34,
-      "hobbies": [],
-      "id": "699efcb8-ff48-4cac-9573-8f90c665931c"
+      "hobbies": []
     }
 
   ### In case data in request is not contained required fields:
@@ -156,10 +159,10 @@
 
     Returned value:
     {
+      "id": "699efcb8-ff48-4cac-9573-8f90c665931c",
       "username": "John Dir",
       "age": 18,
-      "hobbies": [],
-      "id": "699efcb8-ff48-4cac-9573-8f90c665931c"
+      "hobbies": []
     }
     
   **If user not exist:**
